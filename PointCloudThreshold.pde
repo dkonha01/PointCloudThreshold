@@ -1,9 +1,3 @@
-// Daniel Shiffman
-// Kinect Point Cloud example
-
-// https://github.com/shiffman/OpenKinect-for-Processing
-// http://shiffman.net/p5/kinect/
-
 import org.openkinect.freenect.*;
 import org.openkinect.processing.*;
 
@@ -44,9 +38,11 @@ void draw() {
   int skip = 2;
 
   // Translate and rotate
-  translate(width/2, height/2, -50);
+  translate(width/2, height/2, 0);
 //  rotateY(a);
-  shearX(cos(b));
+  shearX(cos(b)/2);
+  rotateY(cos(a)/1.7);
+  scale(2.3 + abs(sin(b)));
 
   for (int x = 0; x < kinect.width; x += skip) {
     for (int y = 0; y < kinect.height; y += skip) {
@@ -67,7 +63,7 @@ void draw() {
     }
   }
    
- 
+       a += 0.027f;
        b += 0.019f;
      
 }
