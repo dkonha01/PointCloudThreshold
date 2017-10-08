@@ -16,7 +16,11 @@ float[] depthLookUp = new float[2048];
 void setup() {
   // Rendering in P3D
   //size(1280, 960, P3D);
-   fullScreen(P3D, 2);
+  fullScreen(P3D, 2);
+  
+  noCursor();
+  
+  frameRate(15);
   
   kinect = new Kinect(this);
   kinect.initDepth();
@@ -35,14 +39,20 @@ void draw() {
   int[] depth = kinect.getRawDepth();
 
   // We're just going to calculate and draw every 4th pixel (equivalent of 160x120)
-  int skip = 2;
+  int skip = 3;
+  //int skip = 2;
 
   // Translate and rotate
   translate(width/2, height/2, 0);
-//  rotateY(a);
-  shearX(cos(b)/2);
-  rotateY(cos(a)/1.7);
-  scale(2.3 + abs(sin(b)));
+
+ 
+  shearX(cos(b)/4);
+
+  rotateY(1/cos(a)/3.7);
+  // rotateY(cos(a)/1.7);
+  
+  scale(1.3 + abs(sin(b)));
+  // scale(2.3 + abs(sin(b)));
 
   for (int x = 0; x < kinect.width; x += skip) {
     for (int y = 0; y < kinect.height; y += skip) {
@@ -54,8 +64,11 @@ void draw() {
 
       stroke(255);
       pushMatrix();
-     
-      float factor = 373;
+      
+ 
+      float factor = 473;
+      //float factor = 373;
+  
       translate(v.x*factor, v.y*factor, factor-v.z*factor);
       // Draw a point
       point(0, 0);
@@ -63,8 +76,10 @@ void draw() {
     }
   }
    
-       a += 0.027f;
-       b += 0.019f;
+       a += 0.0077f;
+       //   a += 0.027f;
+       b += 0.009f;
+       // b += 0.019f;
      
 }
  
@@ -73,7 +88,8 @@ void draw() {
 // These functions come from: http://graphics.stanford.edu/~mdfisher/Kinect.html
 float rawDepthToMeters(int depthValue) {
  // if (depthValue < 937 ) {
-  if (depthValue > 937 || depthValue < 877 ) {
+  if (depthValue > 917 || depthValue < 857 ) {
+    //  if (depthValue > 937 || depthValue < 877 ) {
     return (float)(1 / ((double)(depthValue) * -0.0030711016 + 3.3309495161));
   }
   return 0.0f;
