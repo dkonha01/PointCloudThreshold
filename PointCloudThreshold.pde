@@ -20,7 +20,7 @@ void setup() {
   
   noCursor();
   
-  frameRate(15);
+  frameRate(30);
   
   kinect = new Kinect(this);
   kinect.initDepth();
